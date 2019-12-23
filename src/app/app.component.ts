@@ -32,25 +32,25 @@ export class AppComponent {
 
   ngOnInit() {
     this.subscriptionConcatMap = this.concatMapObs$
-      .pipe(concatMap((value: number) => this.testApiService.getItem(value)))
+      .pipe(concatMap((id: number) => this.testApiService.getItem(id)))
       .subscribe(item => {
         console.log("concat map " + JSON.stringify(item));
       });
 
     this.subscriptionMergeMap = this.mergeMapObs$
-      .pipe(mergeMap((value: number) => this.testApiService.getItem(value)))
+      .pipe(mergeMap((id: number) => this.testApiService.getItem(id)))
       .subscribe(item => {
         console.log("merge map " + JSON.stringify(item));
       });
 
     this.subscriptionSwitchMap = this.switchMapObs$
-      .pipe(switchMap((value: number) => this.testApiService.getItem(value)))
+      .pipe(switchMap((id: number) => this.testApiService.getItem(id)))
       .subscribe(item => {
         console.log("switch map " + JSON.stringify(item));
       });
 
     this.subscriptionExhaustMap = this.exhaustMapObs$
-      .pipe(exhaustMap(value => this.testApiService.getItem(value)))
+      .pipe(exhaustMap(id => this.testApiService.getItem(id)))
       .subscribe(item => {
         console.log("exhaust map " + JSON.stringify(item));
       });
