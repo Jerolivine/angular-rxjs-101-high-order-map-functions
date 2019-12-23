@@ -32,25 +32,25 @@ export class AppComponent {
 
   ngOnInit() {
     this.subscriptionConcatMap = this.concatMapObs$
-      .pipe(concatMap(() => this.getNextItem()))
+      .pipe(concatMap((value: number) => this.testApiService.getItem(value)))
       .subscribe(item => {
         console.log("concat map " + JSON.stringify(item));
       });
 
     this.subscriptionMergeMap = this.mergeMapObs$
-      .pipe(mergeMap(() => this.getNextItem()))
+      .pipe(mergeMap((value: number) => this.testApiService.getItem(value)))
       .subscribe(item => {
         console.log("merge map " + JSON.stringify(item));
       });
 
     this.subscriptionSwitchMap = this.switchMapObs$
-      .pipe(switchMap(() => this.getNextItem()))
+      .pipe(switchMap((value: number) => this.testApiService.getItem(value)))
       .subscribe(item => {
         console.log("switch map " + JSON.stringify(item));
       });
 
     this.subscriptionExhaustMap = this.exhaustMapObs$
-      .pipe(exhaustMap(() => this.getNextItem()))
+      .pipe(exhaustMap(value => this.testApiService.getItem(value)))
       .subscribe(item => {
         console.log("exhaust map " + JSON.stringify(item));
       });
@@ -64,22 +64,19 @@ export class AppComponent {
   }
 
   concatMapClick() {
-    this.concatMapSubject.next(this.id);
+    this.concatMapSubject.next(++this.id);
   }
 
   mergeMapClick() {
-    this.mergeMapSubject.next(this.id);
+    this.mergeMapSubject.next(++this.id);
   }
 
   switchMapClick() {
-    this.switchMapSubject.next(this.id);
+    this.switchMapSubject.next(++this.id);
   }
 
   exhaustMapClick() {
-    this.exhaustMapSubject.next(this.id);
+    this.exhaustMapSubject.next(++this.id);
   }
 
-  getNextItem(): Observable<any> {
-    return this.testApiService.getItem(++this.id);
-  }
 }
