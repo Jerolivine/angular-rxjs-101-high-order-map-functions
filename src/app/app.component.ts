@@ -31,6 +31,7 @@ export class AppComponent {
   constructor(private testApiService: TestApiService) {}
 
   ngOnInit() {
+
     this.subscriptionConcatMap = this.concatMapObs$
       .pipe(concatMap((id: number) => this.testApiService.getItem(id)))
       .subscribe(item => {
